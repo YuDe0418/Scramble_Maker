@@ -40,16 +40,40 @@ bool AreStepsEqual(const string &lastStep, int lastTime, bool lastP, const strin
     return (lastStep == newStep && lastTime == newTime && lastP == newP) || 
            ((lastStep == "R" && lastTime == 2) && (newStep == "R" && newTime == 1 && newP == false)) || 
            ((lastStep == "R" && lastTime == 1 && lastP == false) && (newStep == "R" && newTime == 2)) ||
+           ((lastStep == "R" && lastTime == 1 && lastP == true) && (newStep == "R" && newTime == 1 && lastP == false)) ||
+           ((lastStep == "R" && lastTime == 1 && lastP == false) && (newStep == "R" && newTime == 1 && newP == true)) ||
+           ((lastStep == "R" && lastTime == 2) && (newStep == "R" && newTime == 1 && newP == true)) || 
+           ((lastStep == "R" && lastTime == 1 && lastP == true) && (newStep == "R" && newTime == 2)) ||
            ((lastStep == "L" && lastTime == 2) && (newStep == "L" && newTime == 1 && newP == false)) || 
            ((lastStep == "L" && lastTime == 1 && lastP == false) && (newStep == "L" && newTime == 2)) ||
+           ((lastStep == "L" && lastTime == 1 && lastP == true) && (newStep == "L" && newTime == 1 && lastP == false)) ||
+           ((lastStep == "L" && lastTime == 1 && lastP == false) && (newStep == "L" && newTime == 1 && newP == true)) ||
+           ((lastStep == "L" && lastTime == 2) && (newStep == "L" && newTime == 1 && newP == true)) || 
+           ((lastStep == "L" && lastTime == 1 && lastP == true) && (newStep == "L" && newTime == 2)) ||
            ((lastStep == "U" && lastTime == 2) && (newStep == "U" && newTime == 1 && newP == false)) || 
            ((lastStep == "U" && lastTime == 1 && lastP == false) && (newStep == "U" && newTime == 2)) ||
+           ((lastStep == "U" && lastTime == 1 && lastP == true) && (newStep == "U" && newTime == 1 && lastP == false)) ||
+           ((lastStep == "U" && lastTime == 1 && lastP == false) && (newStep == "U" && newTime == 1 && newP == true)) ||
+           ((lastStep == "U" && lastTime == 2) && (newStep == "U" && newTime == 1 && newP == true)) || 
+           ((lastStep == "U" && lastTime == 1 && lastP == true) && (newStep == "U" && newTime == 2)) ||
            ((lastStep == "D" && lastTime == 2) && (newStep == "D" && newTime == 1 && newP == false)) || 
            ((lastStep == "D" && lastTime == 1 && lastP == false) && (newStep == "D" && newTime == 2)) ||
+           ((lastStep == "D" && lastTime == 1 && lastP == true) && (newStep == "D" && newTime == 1 && lastP == false)) ||
+           ((lastStep == "D" && lastTime == 1 && lastP == false) && (newStep == "D" && newTime == 1 && newP == true)) ||
+           ((lastStep == "D" && lastTime == 2) && (newStep == "D" && newTime == 1 && newP == true)) || 
+           ((lastStep == "D" && lastTime == 1 && lastP == true) && (newStep == "D" && newTime == 2)) ||
            ((lastStep == "F" && lastTime == 2) && (newStep == "F" && newTime == 1 && newP == false)) || 
            ((lastStep == "F" && lastTime == 1 && lastP == false) && (newStep == "F" && newTime == 2)) ||
+           ((lastStep == "F" && lastTime == 1 && lastP == true) && (newStep == "F" && newTime == 1 && lastP == false)) ||
+           ((lastStep == "F" && lastTime == 1 && lastP == false) && (newStep == "F" && newTime == 1 && newP == true)) ||
+           ((lastStep == "F" && lastTime == 2) && (newStep == "F" && newTime == 1 && newP == true)) || 
+           ((lastStep == "F" && lastTime == 1 && lastP == true) && (newStep == "F" && newTime == 2)) ||
            ((lastStep == "B" && lastTime == 2) && (newStep == "B" && newTime == 1 && newP == false)) || 
-           ((lastStep == "B" && lastTime == 1 && lastP == false) && (newStep == "B" && newTime == 2));
+           ((lastStep == "B" && lastTime == 1 && lastP == false) && (newStep == "B" && newTime == 2)) ||
+           ((lastStep == "B" && lastTime == 1 && lastP == true) && (newStep == "B" && newTime == 1 && lastP == false)) ||
+           ((lastStep == "B" && lastTime == 1 && lastP == false) && (newStep == "B" && newTime == 1 && newP == true)) ||
+           ((lastStep == "B" && lastTime == 2) && (newStep == "B" && newTime == 1 && newP == true)) || 
+           ((lastStep == "B" && lastTime == 1 && lastP == true) && (newStep == "B" && newTime == 2)) ;
 }
 
 
