@@ -1,52 +1,52 @@
 # CUBEX · 3D Scramble Lab
 
-CUBEX 是在瀏覽器執行的 3×3 魔術方塊工作台。它能產生打亂公式、重播每一手、檢查六面貼紙，以及將當前視角匯出為 PNG。原始 C++ 程式仍可獨立使用。
+CUBEX is a browser-based tool for generating and exploring 3×3 cube scrambles. Generate a scramble, replay it move by move, inspect all six faces, or export the current view as a PNG. The C++ scrambler can also run on its own.
 
-## Windows 11 安裝與啟動
+## Get started on Windows 11
 
-需要 Node.js 22.12 以上版本（本專案以 Node.js 24 驗證），以及支援 WebGL 2 的瀏覽器，例如 Chrome 或 Edge。在專案目錄中開啟 PowerShell，使用下列指令。
+Use Node.js 22.12 or newer and a browser with WebGL 2 support, such as Chrome or Edge. The project was tested with Node.js 24. Open PowerShell in the project directory and run these commands.
 
 ```powershell
 npm.cmd ci
 npm.cmd run dev
 ```
 
-用瀏覽器開啟 `http://127.0.0.1:5173/`。若該連接埠已被使用，請開啟終端機列出的 `Local` 網址。按 `Ctrl+C` 停止開發伺服器。
+Open `http://127.0.0.1:5173/` in your browser. If that port is already in use, open the URL labeled `Local` in the terminal. Press `Ctrl+C` to stop the development server.
 
-使用下列指令建置並預覽正式版本。
+To build and preview the production version, run these commands.
 
 ```powershell
 npm.cmd run build
 npm.cmd run preview
 ```
 
-建置產物位於 `dist/`。預覽伺服器預設使用 `http://127.0.0.1:4173/`。使用 HTTP 伺服器提供 `dist/` 內容即可由瀏覽器載入。
+The build output goes into `dist/`. The preview server defaults to `http://127.0.0.1:4173/`. To host the build, serve the contents of `dist/` over HTTP.
 
-## 操作方式
+## Using CUBEX
 
-| 功能 | 操作 |
+| Feature | How to use it |
 | --- | --- |
-| 產生公式 | 選擇 18、20、22 或 25 手，再按 **Generate Scramble**。畫面會立即跳到打亂後的狀態，並將公式加入歷史。首次開啟會顯示一組 20 手示範。 |
-| 播放與定位 | **Play** 從目前位置開始。位於公式終點時，按下 **Play** 會從完成狀態重播。可以暫停、續播、從頭播放、逐步前後移動，或點選公式中的一手跳到該手完成後的狀態。**Reset Cube** 跳回第 0 手。 |
-| 播放速度 | 可選 0.5×、1×、2×、4×。進度條可拖曳到任何整步快照。播放中或暫停於半轉時，公式會高亮目前這一手。 |
-| 查看方塊 | 拖曳旋轉視角，使用滾輪或雙指捏合縮放。**Isometric** 在透視與正交等角視角間切換。**2D Net** 顯示六面各九張貼紙。轉動尚未完成時，展開圖顯示上一個整步狀態。 |
-| 匯出 PNG | 點選 **Export Image**，可選 1080×1080、1920×1080 或 3840×2160，並決定是否使用透明背景、附上公式。在 3D 視圖匯出時會保留畫面中的轉動姿態與相機角度。在 2D 視圖匯出時使用展開圖呈現的整步狀態，以及最近的 3D 相機角度。 |
-| 管理公式 | **Copy** 複製目前公式，**TXT** 直接下載公式。歷史保存最近 20 筆，可點選還原，也能使用垃圾桶按鈕清除。 |
-| 音效與快捷鍵 | **Settings** 可切換轉動音效，預設關閉。`Space` 播放或暫停，`←`／`→` 逐步移動，`G` 產生新公式。 |
+| Generate a scramble | Choose 18, 20, 22, or 25 moves and click **Generate Scramble**. The app shows the scrambled cube immediately and saves the sequence to history. The app opens with a 20-move example. |
+| Play and navigate | **Play** starts at the current position. At the end of the sequence, it starts again from the solved state. Pause, resume, restart, step forward or backward, or select a move to jump to the state just after it. **Reset Cube** returns to move 0. |
+| Change playback speed | Choose 0.5×, 1×, 2×, or 4×. Drag the timeline to any completed move. The active move is highlighted while it animates, including when playback is paused mid-turn. |
+| Inspect the cube | Drag to orbit the cube. Scroll or pinch to zoom. **Isometric** switches between perspective and orthographic isometric views. **2D Net** shows all 54 stickers across six faces. During a turn, the net shows the state at the last completed move. |
+| Export a PNG | Click **Export Image** and choose 1080×1080, 1920×1080, or 3840×2160. You can use a transparent background and include the scramble sequence. The 3D view exports the visible cube pose and camera angle. The 2D net exports the cube state shown in the net from the most recent 3D camera angle. |
+| Manage scrambles | **Copy** copies the current scramble to the clipboard, and **TXT** downloads it. History keeps the 20 most recent scrambles. Select an entry to restore it or use the trash button to clear the history. |
+| Sound and keyboard shortcuts | Toggle turn sounds in **Settings**. Sound is off by default. Press `Space` to play or pause, `←` or `→` to step through moves, and `G` to generate a new scramble. |
 
-3D 視圖與 PNG 匯出需要 WebGL 2。若裝置無法啟用 WebGL 2，仍可使用公式、歷史與 2D 展開圖。歷史和音效設定保存在目前瀏覽器的 `localStorage`。
+The 3D view and PNG export require WebGL 2. Scramble generation, history, and the 2D net remain available on devices without WebGL 2 support. The app stores history and the sound setting in the browser’s `localStorage`.
 
-## 打亂規則與方塊狀態
+## Scramble rules and cube state
 
-CUBEX 使用 **Random-Move Scrambler**，每組公式由逐手抽樣產生。打亂器以 Web Crypto 取樣，支援 `R L U D F B`、逆時針記號 `'` 和半圈記號 `2`。相鄰步驟必須切換到不同軸，從生成時排除相鄰同面合併與連續同軸冗餘。未來可以在 `src/engine/scrambleGenerator.ts` 的 `ScrambleGenerator` 介面下加入隨機狀態演算法。
+The **Random-Move Scrambler** uses Web Crypto to sample each move. It supports the faces `R L U D F B`, the counterclockwise suffix `'`, and the half-turn suffix `2`. Consecutive moves must use different axes, which prevents adjacent same-face moves and redundant same-axis sequences. A future random-state algorithm could implement the `ScrambleGenerator` type in [`src/engine/scrambleGenerator.ts`](src/engine/scrambleGenerator.ts).
 
-完成狀態使用上白、下黃、前綠、後藍、右紅、左橘。核心引擎使用整數格點及正交基底保存小方塊的位置與朝向。每個轉動以面外側看過去的順時針方向為基準。動畫只插值對應層的九個小方塊，完成後回到整數快照。歷史保存公式、時間、步數與最終貼紙排列，還原時以公式重新建立整條快照，再核對最終貼紙排列。
+In the solved state, white is up, yellow is down, green is front, blue is back, red is right, and orange is left. The engine stores each cubie’s position on an integer grid and its orientation as an orthogonal basis. Clockwise turns are defined as viewed from outside the face being turned. Animation interpolates only the nine cubies in the moving layer and settles on the next exact grid state after each turn. History stores the scramble, timestamp, move count, and final sticker arrangement. When restoring an entry, the app rebuilds the sequence of cube states and checks the final arrangement against the saved one.
 
-## 測試
+## Tests
 
 ```powershell
 npm.cmd test
 npm.cmd run test:e2e
 ```
 
-單元測試涵蓋旋轉方向與恆等式、逆公式、六色張數、渲染模型與邏輯快照一致性，以及播放中斷和歷史重建。Playwright 測試會使用已安裝的 Chrome，自動啟動本機站台並驗證播放、展開圖、複製、TXT、歷史與三種 PNG 尺寸。PNG 測試也會比對下載檔與 3D 畫面的貼紙像素，並檢查透明背景。若要使用已安裝的 Edge，可以先設定 `$env:CUBEX_E2E_CHANNEL = 'msedge'`。
+Unit tests cover turn directions, move identities, inverse sequences, sticker counts for all six colors, agreement between the renderer and cube state, playback interruptions, and rebuilding states from history. Playwright starts the local app server and uses an installed copy of Chrome to check playback, the 2D net, clipboard copying, TXT downloads, history, and all three PNG sizes. The PNG tests also compare sticker pixels with the 3D view and check the transparent background. To use an installed copy of Edge, set `$env:CUBEX_E2E_CHANNEL = 'msedge'` before running the end-to-end tests.
